@@ -1,3 +1,4 @@
+// Running Sum of 1d Array Solution
 class Solution {
 public:
     vector<int> runningSum(vector<int>& nums) {
