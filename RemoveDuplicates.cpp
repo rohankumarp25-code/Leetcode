@@ -40,8 +40,7 @@ Revision Note:
 - Let 'j' explore the array.
 - When nums[j] is different from nums[i], move it to the next unique position.
 
-Problem Solving Rating (My Version):
-⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ (10/10)
+
 
 =========================================================
 */
