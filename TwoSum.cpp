@@ -1,69 +1,70 @@
-//Two Sum Solution
 /*
 =========================================================
 Problem: Two Sum (LeetCode 1)
 Difficulty: Easy
 
 My Approach:
-- Created a duplicate of the original array.
-- Sorted the duplicate array.
-- Used Two Pointers to find two numbers whose sum equals the target.
-- Traversed the original array to retrieve the original indices.
+- Used an unordered_map to store each number along with its index.
+- For every element, calculated the required complement (target - current element).
+- Checked whether the complement had already been seen.
+- If found, returned the current index and the stored index.
+- Otherwise, stored the current element and its index in the hash map.
 
 Key Concept(s):
 - Arrays
-- Sorting
-- Two Pointers
-- Index Mapping
+- Hashing
+- unordered_map
+- Complement Technique
+- One-pass Traversal
 
 Time Complexity:
-O(n log n)
+O(n) Average Case
 
 Space Complexity:
 O(n)
 
 What I Learned:
-- Sorting can simplify searching problems.
-- When sorting changes the original order, keeping a copy helps recover original information.
-- Multiple DSA concepts can be combined to solve a single problem.
+- Hashing can reduce searching problems from O(n log n) to O(n).
+- Storing previously visited elements allows finding the answer in a single traversal.
+- Sometimes using extra space significantly improves time complexity.
 
 Mistake I Made:
-- Initially, I focused only on finding the numbers.
-- Then I realized the problem requires returning their original indices, so I preserved the original array.
+- My first accepted solution used Sorting + Two Pointers, which required O(n log n) time.
+- Later I realized hashing allows solving the problem in a single pass while preserving the original indices.
 
 Can it be Optimized?
-- Yes. There is a linear-time solution using another concept I have already started learning.
-- I will revisit this problem after mastering that approach.
+- The average-case time complexity is already optimal: O(n).
+- This is the standard interview solution.
 
 Revision Note:
-1. Copy the original array.
-2. Sort the copy.
-3. Use Two Pointers to find the target sum.
-4. Map the values back to their original indices.
+1. Traverse the array once.
+2. Compute the complement = target - current element.
+3. If the complement exists in the hash map, return both indices.
+4. Otherwise, store the current element and its index.
+
+Problem Solving Rating (My Version):
+⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ (10/10)
 
 =========================================================
 */
 class Solution {
 public:
     vector<int> twoSum(vector<int>& nums, int target) {
-        vector<int>dup=nums;
+        unordered_map<long long,int>mp;
         vector<int>ans;
-        sort(dup.begin(),dup.end());
-        int i=0;
-        int j=dup.size()-1;
-        while(i<j){
-            if(dup[i]+dup[j]==target)
+            int more;
+        for(int i=0;i<nums.size();i++){
+            more=target-nums[i];
+            if(mp.find(more)!=mp.end()){
+            ans.push_back(i);
+            ans.push_back(mp[more]);
             break;
-          else if(dup[i]+dup[j]>target)
-             j--;
-             else
-             i++;
+            }
+            if(mp.find(more)==mp.end())
+             mp[nums[i]]=i;
         }
-        for(int k=0;k<nums.size();k++){
-            if(nums[k]==dup[i]||nums[k]==dup[j])
-            ans.push_back(k);
-        }
+     
         return ans;
 
     }
-};
+}; 
